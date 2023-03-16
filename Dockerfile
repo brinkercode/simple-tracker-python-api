@@ -1,6 +1,6 @@
 FROM python:3.11.2-alpine3.16
 WORKDIR /app
-COPY __init__.py /app/
+COPY ./python-env/__init__.py /app/
 COPY ./python-env/main.py /app/
 COPY ./python-env/models /app/models/
 COPY ./python-env/dummy-data.json /app/
