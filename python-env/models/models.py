@@ -6,7 +6,7 @@ from typing import List
 
 def generate_random_id():
     return random.randint(1, 100000)
-#TODO: See if FIELD would be of use here.
+
 class Employee(BaseModel):
     id: int = generate_random_id()
     name: str

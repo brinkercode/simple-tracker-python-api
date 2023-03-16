@@ -5,7 +5,6 @@ import json
 import os
 # from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
-
 app = FastAPI()
 DATA='./dummy-data.json'
 
