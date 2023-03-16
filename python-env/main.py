@@ -186,11 +186,3 @@ async def delete_history(history_id: int):
         if history["id"] == history_id:
             data["history"].remove(history)
     return {f"History with ID: {history_id}": "Deleted"}
-
-def main():
-    uvicorn.run(app, host="")
-
-if __name__ =="__main__":
-    main()
-
-# Contracts
