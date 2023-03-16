@@ -1,0 +1,8 @@
+name: Build and push docker image to ghcr
+
+on: 
+  workflow_call:
+
+jobs:
+  build:
+    uses: boxboat-github-practice/workflows/.github/workflows/docker-build.yaml@main
