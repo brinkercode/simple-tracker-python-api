@@ -10,3 +10,5 @@ env:
 jobs:
   newman:
    uses: boxboat-github-practice/reusable-workflows/.github/workflows/simple-tracker-test.yaml@main
+   with:
+    port: 8000
