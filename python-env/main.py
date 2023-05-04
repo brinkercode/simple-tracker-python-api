@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from models.models import Employee, Client, Contract, History
 from fastapi.middleware.cors import CORSMiddleware
 import json
@@ -85,10 +85,14 @@ def _client_exists(client_id):
             return True
     return False
 
-@app.post("/clients", status_code=201)
-async def create_client(client: Client):
-    data["clients"].append(client)
-    return client
+@app.post("/clients", status_code=200)
+async def create_client(client: Client, response: Response):
+    if client != None:
+        data["clients"].append(client)
+        return client
+    else:
+        response.status_code=status.HTTP_400_CLIENT_ERROR
+        raise HTTPException(status_code=400, detail="Client Error")
 
 @app.get("/clients/{client_id}")
 async def get_client(client_id: int):
