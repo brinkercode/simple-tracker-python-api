@@ -1,11 +1,12 @@
-from fastapi import FastAPI, HTTPException, Response
+from fastapi import FastAPI, HTTPException, Response, status
 from models.models import Employee, Client, Contract, History
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
+import logging
 # from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
-
-app = FastAPI()
+logging.basicConfig(level=logging.DEBUG)
+app = FastAPI(port=8081)
 DATA='./dummy-data.json'
 
 # TODO: add status_codes 404, 400, 201
@@ -17,7 +18,8 @@ DATA='./dummy-data.json'
 origins = [
     "http://localhost",
     "http://localhost:8000",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:8081"
 ]
 # HTTPS only
 # app.add_middleware(HTTPSRedirectMiddleware)
@@ -94,19 +96,22 @@ async def create_client(client: Client, response: Response):
         response.status_code=status.HTTP_400_CLIENT_ERROR
         raise HTTPException(status_code=400, detail="Client Error")
 
-@app.get("/clients/{client_id}")
+@app.get("/clients/{client_id}", status_code=200)
 async def get_client(client_id: int):
     if not _client_exists(client_id):
         raise HTTPException(status_code=404, detail="Client not found")
-    for client in data["clients"]:
-        if client["id"] == client_id:
-            return client
+    else:
+        return data['clients'][client_id]
 
-@app.put("/clients/{client_id}")
+@app.put("/clients/{client_id}", status_code=200)
 async def update_client(client_id: int, client: Client):
+    logging.debug(client.id)
     if not _client_exists(client_id):
-        raise HTTPException(status_code=404, detail="Client not found")
-    return {"client_id": client_id, **client.dict()}
+        raise HTTPException(status_code=404, detail="Client not found.")
+    elif client.id != None:
+        raise HTTPException(status_code=400, detail="Cannot update primary id.")
+    else:
+        return {"client_id": client_id, **client.dict()}
 
 
 @app.delete("/clients/{client_id}")
