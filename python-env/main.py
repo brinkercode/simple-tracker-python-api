@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Response, status
+from fastapi import FastAPI, HTTPException, Response, status, Request
 from models.models import Employee, Client, Contract, History
 from fastapi.middleware.cors import CORSMiddleware
 import json
@@ -104,11 +104,13 @@ async def get_client(client_id: int):
         return data['clients'][client_id]
 
 @app.put("/clients/{client_id}", status_code=200)
-async def update_client(client_id: int, client: Client):
-    logging.debug(client.id)
+async def update_client(client_id: int, client: Client, request: Request):
+    inbound=await request.json()
+    # Problem here as it fetches client automaitcally which includes ID.
     if not _client_exists(client_id):
         raise HTTPException(status_code=404, detail="Client not found.")
-    elif client.id != None:
+    # Using privateAttrs to prevent updating ID but request allows meeting spec.
+    elif inbound.get("_id") != None:
         raise HTTPException(status_code=400, detail="Cannot update primary id.")
     else:
         return {"client_id": client_id, **client.dict()}

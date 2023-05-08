@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, PrivateAttr
 import random
 from enum import Enum
 from datetime import datetime as dt 
@@ -8,12 +8,14 @@ def generate_random_id():
     return random.randint(1, 100000)
 
 class Employee(BaseModel):
-    id: int = generate_random_id()
+    _id: int = generate_random_id()
     name: str
     github: str
 
 class Client(BaseModel):
-    id: int = generate_random_id()
+    class Config:
+        underscore_attrs_are_private = True
+    _id: int = generate_random_id()
     name: str
     url: str
     
