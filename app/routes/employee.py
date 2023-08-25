@@ -25,6 +25,14 @@ def _employee_exists(employee_id: int):
             return True
     return False
 
+# Check if required values exist
+def _required_values_exist(client: Employee):
+    if not employee.name:
+        raise HTTPException(status_code=400, detail="Missing client name")
+    if not employee.github:
+        employee.github = None
+    return True
+
 # Get all employees
 @router.get("/employees")
 async def root():
@@ -59,9 +67,15 @@ async def update_employee(employee_id: int, employee: Employee):
         for emp in data["employees"]:
             if emp["id"] == employee_id:
                 emp["name"] = employee.name
-                emp["github"] = employee.github
-                employee = Employee(**emp)
-    return {"id": employee_id, **employee.dict()}
+                if employee.github:
+                    emp["github"] = employee.github
+                    _required_values_exist(employee)
+                    employee = Employee(**emp)
+                    return {"id": employee_id, **employee.dict()}
+                else:
+                    emp["github"] = "github missing"
+                    employee = Employee(**emp)
+                    return {"id": employee_id, **employee.dict()}
 
 # Delete employee by ID
 @router.delete("/employees/{employee_id}")
