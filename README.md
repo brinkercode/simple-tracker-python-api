@@ -24,4 +24,5 @@ http://127.0.0.1/docs
 ### Done ✓
 
 - [x] Restructure files and structure 
+- [x] Update/rewite employee routes
 - [x] Update/rewrite client routes 
