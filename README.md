@@ -8,3 +8,6 @@ with [Pydantic](https://docs.pydantic.dev/)
 `pip install "uvicorn[standard]"`
 `uvicorn main:app --reload`
 `pip install requirements.txt`
+
+# Documentation
+http://127.0.0.1/docs
