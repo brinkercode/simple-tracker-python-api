@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import logging
 from .routes import employee, client, contract
 #, history
+
+logging.basicConfig(filename='./logs/INFO.txt', level=logging.DEBUG)
 
 app = FastAPI()
 

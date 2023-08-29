@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 import json
 import random
 import logging
+from datetime import datetime
 from ..models import Employee
 
 router = APIRouter()
@@ -14,8 +15,6 @@ def read_in_json():
 
 DATA = './data.json'
 data = read_in_json()
-
-logging.basicConfig(filename='./logs/employee.txt', level=logging.DEBUG)
 
 # Check if employee exists
 def _employee_exists(employee_id: int):
@@ -39,7 +38,7 @@ def generate_random_id():
 # Get all employees
 @router.get("/employees")
 async def root():
-    logging.info('Get all employees')
+    logging.info('[{}] Get all employees'.format(datetime.now()))
     return data["employees"]
 
 # Get employee by ID
@@ -49,7 +48,7 @@ async def get_employee(employee_id: int):
         raise HTTPException(status_code=404, detail="Employee not found")
     for employee in data["employees"]:
         if employee["id"] == employee_id:
-            logging.info('Get employee by ID: {}'.format(employee_id))
+            logging.info('[{}] Get employee by ID: {}'.format(datetime.now(), employee_id))
             return employee
 
 # TODO: Fix bad employee. Missing value should return a 400
@@ -60,7 +59,7 @@ async def create_employee(employee: Employee):
     employee_dict = employee.dict()
     employee_dict["id"] = employee_id
     data["employees"].append(employee_dict)
-    logging.info('Create new employee with ID: {}'.format(employee_id))
+    logging.info('[{}] Create new employee with ID: {}'.format(datetime.now(), employee_id))
     return {"id": employee_id, **employee_dict}
 
 # TODO: Fix illegal update to ID, return 400
@@ -75,7 +74,7 @@ async def update_employee(employee_id: int, employee: Employee):
                 emp["name"] = employee.name
                 emp["github"] = employee.github
                 employee = Employee(**emp)
-                logging.info('Update employee with ID: {}'.format(employee_id))
+                logging.info('[{}] Update employee with ID: {}'.format(datetime.now(), employee_id))
                 return {"id": employee_id, **employee.dict()}
     return {"Employee with ID: {}".format(employee_id): "Updated"}
 
@@ -87,5 +86,5 @@ async def delete_employee(employee_id: int):
     for employee in data["employees"]:
         if employee["id"] == employee_id:
             data["employees"].remove(employee)
-            logging.info('Delete employee with ID: {}'.format(employee_id))
+            logging.info('[{}] Delete employee with ID: {}'.format(datetime.now(), employee_id))
             return {"Employee with ID: {}".format(employee_id): "Deleted"}

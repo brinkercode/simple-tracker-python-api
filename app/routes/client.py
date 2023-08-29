@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 import json
 import random
+import logging
+from datetime import datetime
 from ..models import Client
 
 router = APIRouter()
@@ -28,6 +30,7 @@ def generate_random_id():
 # Get all Clients
 @router.get("/clients")
 async def root():
+    logging.info('[{}] Get all clients'.format(datetime.now()))
     return data["clients"]
 
 # Get client by ID
@@ -37,6 +40,7 @@ async def get_client(client_id: int):
         raise HTTPException(status_code=404, detail="Client not found")
     for client in data["clients"]:
         if client["id"] == client_id:
+            logging.info('[{}] Get client by ID: {}'.format(datetime.now(), client_id))
             return client
 
 # Create new client
@@ -46,6 +50,7 @@ async def create_client(client: Client):
     client_dict = client.dict()
     client_dict["id"] = client_id
     data["clients"].append(client_dict)
+    logging.info('[{}] Create client: {}'.format(datetime.now(), client_id))
     return {"id": client_id, **client_dict}
 
 # Update client by ID
@@ -59,6 +64,7 @@ async def update_client(client_id: int, client: Client):
                 c["name"] = client.name
                 c["url"] = client.url
                 updated_client = {"id": client_id, "name": client.name, "url": client.url}
+                logging.info('[{}] Update client by ID: {}'.format(datetime.now(), client_id))
                 return updated_client
     return {"Client with ID: {}".format(client_id): "Updated"}
 
@@ -70,4 +76,5 @@ async def delete_client(client_id: int):
     for c in data["clients"]:
         if c["id"] == client_id:
             data["clients"].remove(c)
+            logging.info('[{}] Delete client by ID: {}'.format(datetime.now(), client_id))
             return {"message": "Client deleted"}
