@@ -14,18 +14,16 @@ def read_in_json():
 DATA = './data.json'
 data = read_in_json()
 
+# Check if employee exists
 def _employee_exists(employee_id: int):
     for employee in data["employees"]:
         if employee["id"] == employee_id:
             return True
     return False
 
+# Generate random ID for new employee
 def generate_random_id():
     return len(data["employees"]) + 1
-
-@router.get("/employees")
-async def root():
-    return data["employees"]
 
 # Check if required values exist
 # def _required_values_exist(client: Employee):
@@ -35,6 +33,12 @@ async def root():
 #         employee.github = None
 #     return True
 
+# Get all employees
+@router.get("/employees")
+async def root():
+    return data["employees"]
+
+# Get employee by ID
 @router.get("/employees/{employee_id}")
 async def get_employee(employee_id: int):
     if not _employee_exists(employee_id):
@@ -44,6 +48,7 @@ async def get_employee(employee_id: int):
             return employee
 
 # TODO: Fix bad employee. Missing value should return a 400
+# Create new employee
 @router.post("/employees")
 async def create_employee(employee: Employee):
     employee_id = generate_random_id()
@@ -53,6 +58,7 @@ async def create_employee(employee: Employee):
     return {"id": employee_id, **employee_dict}
 
 # TODO: Fix illegal update to ID, return 400
+# Update employee by ID
 @router.put("/employees/{employee_id}")
 async def update_employee(employee_id: int, employee: Employee):
     if not _employee_exists(employee_id):
