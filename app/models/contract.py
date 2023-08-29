@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import List
 
 class Contract(BaseModel):
-    id: int
+    id: int | None = None
     clientId: int
     type: str
     startDate: str

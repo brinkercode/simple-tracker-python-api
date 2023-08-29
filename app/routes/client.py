@@ -25,14 +25,6 @@ def _client_exists(client_id: int):
 def generate_random_id():
     return len(data["clients"]) + 1
 
-# # Check if required values exist
-# def _required_values_exist(client: Client):
-#     if not client.name:
-#         raise HTTPException(status_code=400, detail="Missing client name")
-#     if not client.url:
-#         client.url = None
-#     return True
-
 # Get all Clients
 @router.get("/clients")
 async def root():

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import employee, client
-#, contract, history
+from .routes import employee, client, contract
+#, history
 
 app = FastAPI()
 
@@ -33,5 +33,5 @@ app.add_middleware(
 
 app.include_router(employee.router)
 app.include_router(client.router)
-# app.include_router(contract.router)
+app.include_router(contract.router)
 # app.include_router(history.router)
