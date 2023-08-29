@@ -42,36 +42,32 @@ async def get_contract(contract_id: int):
 # Create new contract
 @router.post("/contracts")
 async def create_contract(contract: Contract):
-    contract_id = generate_random_id()
-    contract_dict = contract.dict()
-    contract_dict["id"] = contract_id
-    data["contracts"].append(contract_dict)
-    return {"id": contract_id, **contract_dict}
+    contract.id = generate_random_id()
+    data["contracts"].append(contract.dict())
+    return contract
 
 # Update contract by ID
+#TODO: Properties on test data is updating but the smoketest is failing
 @router.put("/contracts/{contract_id}")
 async def update_contract(contract_id: int, contract: Contract):
     if not _contract_exists(contract_id):
         raise HTTPException(status_code=404, detail="Contract not found")
-    else:
-        for c in data["contracts"]:
-            if c["id"] == contract_id:
-                c["clientId"] = contract.clientId
-                c["type"] = contract.type
-                c["startDate"] = contract.startDate
-                c["endDate"] = contract.endDate
-                c["tech"] = contract.tech
-                updated_contract = {"id": contract_id, "clientId": contract.clientId, "type": contract.type, "startDate": contract.startDate, "endDate": contract.endDate, "tech": contract.tech}
-                return updated_contract
-            return {"Contract with ID: {}".format(contract_id): "Updated"}
-                
+    for c in data["contracts"]:
+        if c["id"] == contract_id:
+            c["clientId"] = contract.clientId
+            c["type"] = contract.type
+            c["startDate"] = contract.startDate
+            c["endDate"] = contract.endDate
+            c["tech"] = contract.tech
+            updated_contract = Contract(**c)
+            return updated_contract
+
 # Delete contract by ID
 @router.delete("/contracts/{contract_id}")
 async def delete_contract(contract_id: int):
     if not _contract_exists(contract_id):
         raise HTTPException(status_code=404, detail="Contract not found")
-    else:
-        for contract in data["contracts"]:
-            if contract["id"] == contract_id:
-                data["contracts"].remove(contract)
-                return {"Contract with ID: {}".format(contract_id): "Deleted"}
+    for contract in data["contracts"]:
+        if contract["id"] == contract_id:
+            data["contracts"].remove(contract)
+            return {"message": "Contract deleted successfully"}
