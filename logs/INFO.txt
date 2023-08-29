@@ -58,3 +58,27 @@ INFO:root:[2023-08-29 04:51:49.452893] Create client: 5
 INFO:root:[2023-08-29 04:51:49.748876] Delete client by ID: 5
 INFO:root:[2023-08-29 04:59:23.142591] Create client: 5
 INFO:root:[2023-08-29 04:59:23.433568] Delete client by ID: 5
+INFO:root:[2023-08-29 07:20:48.928189] Create new employee with ID: 4
+INFO:root:[2023-08-29 07:20:48.972577] Create client: 5
+INFO:root:[2023-08-29 07:20:49.013588] Create client: 6
+INFO:root:[2023-08-29 07:20:49.031686] Create new employee with ID: 5
+INFO:root:[2023-08-29 07:20:49.296787] Delete client by ID: 5
+INFO:root:[2023-08-29 07:20:49.311652] Delete client by ID: 6
+INFO:root:[2023-08-29 07:20:49.327088] Delete employee with ID: 4
+INFO:root:[2023-08-29 07:20:49.352609] Delete employee with ID: 5
+INFO:root:[2023-08-29 07:27:09.109984] Create new employee with ID: 4
+INFO:root:[2023-08-29 07:27:09.151920] Create client: 5
+INFO:root:[2023-08-29 07:27:09.189320] Create client: 6
+INFO:root:[2023-08-29 07:27:09.206412] Create new employee with ID: 5
+INFO:root:[2023-08-29 07:27:09.479059] Delete client by ID: 5
+INFO:root:[2023-08-29 07:27:09.494268] Delete client by ID: 6
+INFO:root:[2023-08-29 07:27:09.509719] Delete employee with ID: 4
+INFO:root:[2023-08-29 07:27:09.524519] Delete employee with ID: 5
+INFO:root:[2023-08-29 07:28:05.890880] Create new employee with ID: 4
+INFO:root:[2023-08-29 07:28:05.931624] Create client: 5
+INFO:root:[2023-08-29 07:28:05.969627] Create client: 6
+INFO:root:[2023-08-29 07:28:05.987915] Create new employee with ID: 5
+INFO:root:[2023-08-29 07:28:06.266655] Delete client by ID: 5
+INFO:root:[2023-08-29 07:28:06.282244] Delete client by ID: 6
+INFO:root:[2023-08-29 07:28:06.298300] Delete employee with ID: 4
+INFO:root:[2023-08-29 07:28:06.312502] Delete employee with ID: 5

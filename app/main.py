@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-from .routes import employee, client, contract
-#, history
+from .routes import employee, client, contract, history
 
 logging.basicConfig(filename='./logs/INFO.txt', level=logging.DEBUG)
 
@@ -37,4 +36,4 @@ app.add_middleware(
 app.include_router(employee.router)
 app.include_router(client.router)
 app.include_router(contract.router)
-# app.include_router(history.router)
+app.include_router(history.router)

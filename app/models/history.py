@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
 class History(BaseModel):
-    id: int
+    id: int | None = None
     clientId: int
-    employeeId: int
-    contractId: int
-    employeeName: str
     clientName: str
+    contractId: int
+    employeeId: int
+    employeeName: str
     role: str
