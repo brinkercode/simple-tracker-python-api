@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 import json
-import random
 import logging
 from datetime import datetime
 from ..models import Client

@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 import json
-import random
 from ..models import Contract
 
 router = APIRouter()
@@ -47,7 +46,7 @@ async def create_contract(contract: Contract):
     return contract
 
 # Update contract by ID
-#TODO: Properties on test data is updating but the smoketest is failing
+'#TODO: Properties on test data is updating but the smoketest is failing '
 @router.put("/contracts/{contract_id}")
 async def update_contract(contract_id: int, contract: Contract):
     if not _contract_exists(contract_id):

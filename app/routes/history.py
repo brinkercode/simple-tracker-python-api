@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 import json
-import random
 from ..models import History
 
 router = APIRouter()
@@ -27,10 +26,10 @@ def _history_exists(history_id: int):
 
 # Get all history
 @router.get('/history')
-async def get_history():
+async def root():
     return data["history"]
 
-# Get history by ID 
+# Get history by ID
 @router.get("/history/{history_id}")
 async def get_history(history_id: int):
     if not _history_exists(history_id):
