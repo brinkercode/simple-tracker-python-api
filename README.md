@@ -13,16 +13,16 @@ http://127.0.0.1/docs
 
 ### Todo
 
-- [ ] Update/rewrite history routes
-- [ ] Fix Dockerfile deployment
 - [ ] Connect to Azure SQL DB
 
 ### In Progress
 
-- [ ] Update/rewrite contract routes 
+- [ ] Update/rewrite history routes
+- [ ] Fix Dockerfile deployment
 
 ### Done ✓
 
 - [x] Restructure files and structure 
 - [x] Update/rewite employee routes
 - [x] Update/rewrite client routes 
+- [x] Update/rewrite contract routes 
